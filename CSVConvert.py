@@ -39,6 +39,20 @@ def find_filenames_with_suffix(path_to_dir, suffix):
     return filenames_with_suffix_only
 
 
+def confirm(message, error, state_true, state_false) -> bool:
+    answer = ''
+    while answer != state_true or answer != state_false:
+        print("")
+        answer = input(message)
+        if answer == state_true:
+            return True
+        elif answer == state_false:
+            return False
+        else:
+            print(error)
+            print("")
+
+
 def main():
 
     print("=================================================")
@@ -53,23 +67,19 @@ def main():
     for filename in list_xlsx:
         print(filename)
 
-    answer = ''
-    while answer != 'yes' or answer != 'no':
-        answer = input("Combine convert all to CSV? Enter yes or no: ")
-        if answer == "yes":
-            print("")
-            print("Combining files...")
-            convert_filelist_to_csv(list_xlsx)
-            break
-        elif answer == "no":
-            print("Aborting operation...")
-            return
-        else:
-            print("Please enter yes or no.")
-            print("")
+    ready = confirm("Convert all to CSV? Enter yes or no: ",
+                    "Please enter yes or no.", 'yes', 'no')
+
+    if ready:
+        print("")
+        print("Converting files...")
+        convert_filelist_to_csv(list_xlsx)
+    else:
+        print("Aborting operation...")
+        return
 
     print("=================================================")
-    print(" CSVCombine completed execution.                 ")
+    print(" CSVConvert completed execution.                 ")
 
 
 main()

@@ -44,7 +44,7 @@ def confirm(message, error, state_true, state_false) -> bool:
     answer = ''
     while answer != state_true or answer != state_false:
         print("")
-        answer = input("Combine all files? Enter yes or no: ")
+        answer = input(message)
         if answer == state_true:
             return True
         elif answer == state_false:
