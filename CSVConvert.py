@@ -4,13 +4,13 @@ import pandas
 import xlrd
 
 
-def convert_filelist_to_csv(xlsx_filename_list):
+def convert_filelist_to_csv(xlsx_sheet_name, xlsx_filename_list):
     print("Converting")
 
     count_of_files = len(xlsx_filename_list)
     count_of_converted = 0
     for filename in xlsx_filename_list:
-        dimensions = csv_from_excel(filename, 'results', filename)
+        dimensions = csv_from_excel(filename, xlsx_sheet_name, filename)
         count_of_converted += 1
         print("Converted " + str(count_of_converted) +
               "/" + str(count_of_files) + " files... (" + str(dimensions[0]) + " R x " + str(dimensions[1]) + " C)")
@@ -67,13 +67,17 @@ def main():
     for filename in list_xlsx:
         print(filename)
 
+    sheet = input("Enter the (common) sheet name: ")
+
+    print("")
+
     ready = confirm("Convert all to CSV? Enter yes or no: ",
                     "Please enter yes or no.", 'yes', 'no')
 
     if ready:
         print("")
         print("Converting files...")
-        convert_filelist_to_csv(list_xlsx)
+        convert_filelist_to_csv(sheet, list_xlsx)
     else:
         print("Aborting operation...")
         return
